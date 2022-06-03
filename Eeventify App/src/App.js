@@ -1,7 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import NavigationComponent from './Components/NavComponent';
+import EventFeed from './Pages/EventFeed';
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
         </nav>
 
         <Routes>
-            <Route path="" />
+          <Route index element={<EventFeed />} />
         </Routes>
     </>
   );
