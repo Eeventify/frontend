@@ -23,9 +23,13 @@ jobs:
       with:
         node-version: 16
         cache: 'npm'
+      working-directory: ./Eeventify App
     - run: npm ci
+      working-directory: ./Eeventify App
     - run: npm run build --if-present
+      working-directory: ./Eeventify App
     - run: npm test
+      working-directory: ./Eeventify App
 
   publish:
 
