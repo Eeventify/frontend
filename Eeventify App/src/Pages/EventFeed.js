@@ -19,7 +19,7 @@ const EventFeed = () => {
                 .then(json => {
 
                     // Truncate description if neccessary
-                    json.map(item => {
+                    json.forEach(item => {
                         item.description = truncate(item.description, 100);
                     });
 
