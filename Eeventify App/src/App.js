@@ -2,6 +2,7 @@ import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import NavigationComponent from './Components/NavComponent';
 import EventFeed from './Pages/EventFeed';
+import LoginPage from './Pages/Login';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
 
         <Routes>
           <Route index element={<EventFeed />} />
+          <Route path="login" element={<LoginPage />} />
         </Routes>
     </>
   );

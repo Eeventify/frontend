@@ -1,14 +1,17 @@
 /* GET APIs */
-const Login = async (email, password) => {
-    let res = await
-    fetch(process.env.REACT_APP_API_URL + "/Login?email=" + email + "&password=" + password, {
-        method: "GET"
-    });
+export const Login = async (email, password) => {
+        let res = await
+        fetch(process.env.REACT_APP_API_URL + "/Login?email=" + email + "&password=" + password, {
+            method: "GET",
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
 
-    return ((res.status === 200) ? res.text() : res);
+        return ((res.status === 200) ? res.text() : res);
 }
 
-const GetUserDetails = async (userID) => {
+export const GetUserDetails = async (userID) => {
     let res = await
     fetch(process.env.REACT_APP_API_URL + "/User/Details/" + userID, {
         method: "GET"
@@ -17,7 +20,7 @@ const GetUserDetails = async (userID) => {
     return ((res.status === 200) ? res.json() : res);
 }
 
-const GetTokenDetails = async (token) => {
+export const GetTokenDetails = async (token) => {
     let res = await
     fetch(process.env.REACT_APP_API_URL + "/User/Details", {
         method: "GET",
@@ -31,7 +34,7 @@ const GetTokenDetails = async (token) => {
 
 
 /* POST APIs */
-const Register = async (username, email, password, imgString) => {
+export const Register = async (username, email, password, imgString) => {
     let res = await
     fetch(process.env.REACT_APP_API_URL + "/Login/Register", {
         method: "POST",
@@ -41,7 +44,7 @@ const Register = async (username, email, password, imgString) => {
     return res.status
 }
 
-const AttendEvent = async (token, eventID) => {
+export const AttendEvent = async (token, eventID) => {
     let res = await
     fetch(process.env.REACT_APP_API_URL + "/User/AttendEvent/" + eventID, {
         method: "POST",
@@ -53,7 +56,7 @@ const AttendEvent = async (token, eventID) => {
     return res.status
 }
 
-const AddUserInterest = async (token, interestID) => {
+export const AddUserInterest = async (token, interestID) => {
     let res = await
     fetch(process.env.REACT_APP_API_URL + "/User/AddInterest/" + interestID, {
         method: "POST",
@@ -66,7 +69,7 @@ const AddUserInterest = async (token, interestID) => {
 }
 
 /* DELETE APIs */
-const UnattendEvent = async (token, eventID) => {
+export const UnattendEvent = async (token, eventID) => {
     let res = await
     fetch(process.env.REACT_APP_API_URL + "/User/UnattendEvent/" + eventID, {
         method: "DELETE",
@@ -78,7 +81,7 @@ const UnattendEvent = async (token, eventID) => {
     return res.status
 }
 
-const RemoveUserInterest = async (token, interestID) => {
+export const RemoveUserInterest = async (token, interestID) => {
     let res = await
     fetch(process.env.REACT_APP_API_URL + "/User/RemoveInterest/" + interestID, {
         method: "DELETE",

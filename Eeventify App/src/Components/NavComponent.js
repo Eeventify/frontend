@@ -4,7 +4,7 @@ import { Nav, Navbar } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 
 const NavigationComponent = () => {
-    const [ userToken, setUserToken] = useCookies(["user"]);
+    const [ userCookies, setUserCookies, removeUserCookies ] = useCookies(["user"]);
 
     return (
         <Navbar bg="light" expand="lg">
@@ -15,19 +15,19 @@ const NavigationComponent = () => {
                     <Nav className="me-auto">
                         <Nav.Link href="/">Home</Nav.Link>
                     </Nav>
-
+                    { console.log(userCookies.token) }
                     {
-                        userToken === undefined
+                        userCookies.token === undefined
                         ?
                             <Nav>
                                 <Nav.Item>
-                                    <Button>Log in</Button>
+                                    <Button href="/login">Log in</Button>
                                 </Nav.Item>
                             </Nav>
                         :
                             <Nav>
                                 <Nav.Item>
-                                    <Button>Log out</Button>
+                                    <Button onClick={() => { removeUserCookies("token"); window.location.href = window.location.origin}}>Log out</Button>
                                 </Nav.Item>
                             </Nav>
                     }
