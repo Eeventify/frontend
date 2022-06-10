@@ -19,7 +19,7 @@ const EventFeed = () => {
                 .then(json => {
 
                     // Truncate description if neccessary
-                    json.map(item => {
+                    json.forEach(item => {
                         item.description = truncate(item.description, 100);
                     });
 
@@ -38,7 +38,11 @@ const EventFeed = () => {
             <Row className="row-cols-1 row-cols-md-3 g-4 mb-3">
                 { events && 
                     events.map(event => (
-                        <EventCard key={ event.id } title={ event.title } description={ event.description } />
+                        <EventCard
+                            key={ event.id }
+                            title={ event.title }
+                            description={ event.description }
+                            href={"eventdetail/" + event.id } />
                     ))
                 }
             </Row>
