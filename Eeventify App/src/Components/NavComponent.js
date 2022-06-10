@@ -5,11 +5,12 @@ import { useCookies } from "react-cookie";
 
 const NavigationComponent = () => {
     const [ userToken, setUserToken] = useCookies(["user"]);
+    setUserToken(userToken); // this is to prevent an annoying warning about unused value
 
     return (
         <Navbar bg="light" expand="lg">
             <Container>
-                <Navbar.Brand href="/"><img /></Navbar.Brand>
+                <Navbar.Brand href="/"></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
