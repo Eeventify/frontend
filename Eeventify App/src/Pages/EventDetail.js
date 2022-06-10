@@ -27,7 +27,10 @@ const EventDetail = () => {
                 <Col md="6">
                     <h1><strong>Title:</strong> { eventItem.title }</h1>
                     <p>
-                        <strong>Interests:</strong>
+                        <strong>Interests:</strong><br />
+                        { eventItem.interests.map(interestId => (
+                            interestId + ", "
+                        ))}
                     </p>
                     <p><strong>Hosted by:</strong> { eventItem.hostID }</p>
                     <p>
