@@ -77,6 +77,8 @@ const EventDetail = () => {
                 { step > 0 && <img src={ EventImage(state.event.interests[0]) } alt="Event cap" height="400px" ></img> }
             </Row>
             { step === 4 &&
+            // state.event.members.length - 1 is used in the member count and in the logic for the join 
+            // and leave button to compensate for non-existing member 0
             <Row>
                 <Col md="6">
                     <h1><strong>Title:</strong> { state.event.title }</h1>
@@ -95,7 +97,10 @@ const EventDetail = () => {
                     </p>
                     <p><strong>Event starts at:</strong> { new Date(state.event.startEvent).toString() }</p>
                     <p><strong>Description:</strong> { state.event.description }</p>
-                    { !hasJoined && <button className="btn btn-primary mb-2 me-1" onClick={() => SignUp()}>Join this event</button> }
+                    { !hasJoined && state.event.members.length - 1 < state.event.maxPeople &&
+                        <button className="btn btn-primary mb-2 me-1" onClick={() => SignUp()}>Join this event</button> }
+                    { !hasJoined && state.event.members.length - 1 >= state.event.maxPeople &&
+                        <button className="btn btn-secondary mb-2 me-1" disabled>Event full</button> }
                     { hasJoined && <button className="btn btn-danger mb-2 me-1" onClick={() => Leave()}>Leave this event</button> }
                     <a href="/" className="btn btn-primary mb-2">Back to feed</a>
                 </Col>
