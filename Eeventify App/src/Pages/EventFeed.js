@@ -1,7 +1,9 @@
 import { Container, Row } from "react-bootstrap";
 import React from "react";
-import { GetAllEvents, GetEventsByInterests } from "../API/EventAPI"
-import EventCard from "../Components/EventCard"
+import { useCookies } from "react-cookie";
+import { GetAllEvents, GetEventsByInterests } from "../API/EventAPI";
+import { GetTokenDetails } from "../API/UserAPI";
+import EventCard from "../Components/EventCard";
 
 function truncate(str, n) {
     return (str.length > n) ? str.substr(0, n-1) + '…' : str;
@@ -10,7 +12,8 @@ function truncate(str, n) {
 const EventFeed = () => {
     const [ events, setEvents ] = React.useState();
     const [ filter, setFilter ] = React.useState(false);
-    const userInterests = [0];
+    const [ userInterests, setUserInterests ] = React.useState();
+    const [ userCookies ] = useCookies(["user"])
     
     React.useEffect(()  => {
         if (events === undefined) {
@@ -26,13 +29,26 @@ const EventFeed = () => {
                     setEvents(json);
                 });
         }
+
+        if (userInterests === undefined && userCookies.token !== undefined) {
+            GetTokenDetails(userCookies.token).then(json => {
+                console.log(userCookies);
+                console.log(json);
+                setUserInterests(json.interests);
+            })
+        }
     });
 
     return (
         <Container className="mt-4">
             <Row>
                 <h1>Event Feed</h1>
-                <p><input type="checkbox" onClick={ () => {setFilter(!filter); setEvents()} }></input> Show only events that match my interests</p>
+                { userInterests && userInterests.length > 0 &&
+                    <p><input type="checkbox" onClick={ () => {setFilter(!filter); setEvents()} }></input> Show only events that match my interests</p>
+                }
+                { userInterests && userInterests.length === 0 &&
+                    <p><input type="checkbox" disabled></input> Show only events that match my interests</p>
+                }
             </Row>
             
             <Row className="row-cols-1 row-cols-md-3 g-4 mb-3">
