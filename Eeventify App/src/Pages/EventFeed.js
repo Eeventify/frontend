@@ -32,10 +32,8 @@ const EventFeed = () => {
 
         if (userInterests === undefined && userCookies.token !== undefined) {
             GetTokenDetails(userCookies.token).then(json => {
-                console.log(userCookies);
-                console.log(json);
                 setUserInterests(json.interests);
-            })
+            });
         }
     });
 
@@ -58,7 +56,8 @@ const EventFeed = () => {
                             key={ event.id }
                             title={ event.title }
                             description={ event.description }
-                            href={"eventdetail/" + event.id } />
+                            href={"eventdetail/" + event.id }
+                            joined={ event.members.includes(userCookies.principalData.id) } />
                     ))
                 }
             </Row>
