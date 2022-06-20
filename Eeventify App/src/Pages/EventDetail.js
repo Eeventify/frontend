@@ -1,12 +1,15 @@
 import React from "react";
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col } from "react-bootstrap";
+import { useCookies } from "react-cookie";
 import { GetEventByID } from "../API/EventAPI";
-import { GetUserDetails } from "../API/UserAPI";
+import { GetUserDetails, AttendEvent, UnattendEvent } from "../API/UserAPI";
 import { GetInterest } from "../API/InterestAPI";
 
 const EventDetail = () => {
-    const { id } = useParams()
+    const { id } = useParams();
+    const [ hasJoined, setHasJoined ] = React.useState();
+    const [ userCookies ] = useCookies(["user"])
     const [ step, setStep ] = React.useState(0);
     const [ state, setState ] = React.useState(
         {
@@ -22,11 +25,30 @@ const EventDetail = () => {
         tempState[prop] = input;
         setState(tempState);
     }
+
+    function SignUp() {
+        if (state.event !== undefined) {
+            AttendEvent(userCookies.token, state.event.id).then(() => {
+                setHasJoined(true);
+                window.location.reload();
+            });
+        }
+    }
+
+    function Leave() {
+        if (state.event !== undefined) {
+            UnattendEvent(userCookies.token, state.event.id).then(() => {
+                setHasJoined(false);
+                window.location.reload();
+            });
+        }
+    }
     
     React.useEffect(()  => {
         step === 0 && GetEventByID(id)
             .then(json => {
                 setStateProp("event", json);
+                setHasJoined(json.members.includes(userCookies.principalData.id));
                 setStep(1);
             });
         step === 1 && GetUserDetails(state.event.hostID)
@@ -72,7 +94,8 @@ const EventDetail = () => {
                     </p>
                     <p><strong>Event starts at:</strong> { new Date(state.event.startEvent).toString() }</p>
                     <p><strong>Description:</strong> { state.event.description }</p>
-                    <a href="/" className="btn btn-primary mb-2 me-1">Join this event</a>
+                    { !hasJoined && <button className="btn btn-primary mb-2 me-1" onClick={() => SignUp()}>Join this event</button> }
+                    { hasJoined && <button className="btn btn-danger mb-2 me-1" onClick={() => Leave()}>Leave this event</button> }
                     <a href="/" className="btn btn-primary mb-2">Back to feed</a>
                 </Col>
                 <Col md="6">

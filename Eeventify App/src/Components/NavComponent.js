@@ -15,7 +15,6 @@ const NavigationComponent = () => {
                     <Nav className="me-auto">
                         <Nav.Link href="/">Home</Nav.Link>
                     </Nav>
-                    { console.log(userCookies.token) }
                     {
                         userCookies.token === undefined
                         ?

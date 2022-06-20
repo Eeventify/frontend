@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 
-import { Login } from '../API/UserAPI'
+import { Login, GetTokenDetails } from '../API/UserAPI'
 
 const LoginPage = () => {
     const [ loginEmail, setLoginEmail ] = useState()
@@ -51,6 +51,8 @@ const LoginPage = () => {
         if (typeof(token) === 'string')
         {
             setUserCookies("token", token);
+            const principalData = await GetTokenDetails(token)
+            setUserCookies("principalData", principalData);
             window.location.href = window.location.origin;
         } else {
             if (token.status === 401)
@@ -59,8 +61,6 @@ const LoginPage = () => {
                 return;
             }
         }
-
-        
     }
 
     return (
