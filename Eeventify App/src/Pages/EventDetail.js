@@ -5,6 +5,7 @@ import { useCookies } from "react-cookie";
 import { GetEventByID } from "../API/EventAPI";
 import { GetUserDetails, AttendEvent, UnattendEvent } from "../API/UserAPI";
 import { GetInterest } from "../API/InterestAPI";
+import EventImage from "../Components/EventImage";
 
 const EventDetail = () => {
     const { id } = useParams();
@@ -59,13 +60,13 @@ const EventDetail = () => {
         step === 2 && state.event.members.forEach((member, index) => {
             GetUserDetails(member).then(json => {
                 state.members.push(json.name);
-                index === state.event.members.length - 1 && setStep(3);
+                state.members.length === state.event.members.length && setStep(3);
             });
         });
         step === 3 && state.event.interests.forEach((interest, index) => {
             GetInterest(interest).then(json => {
                 state.interests.push(json.name);
-                index === state.event.interests.length - 1 && setStep(4);
+                state.interests.length === state.event.interests.length && setStep(4);
             });
         });
     });
@@ -73,7 +74,7 @@ const EventDetail = () => {
     return (
         <Container>
             <Row className="mb-3">
-                <img src="https://picsum.photos/1000/300" alt="Event cap"></img>
+                { step > 0 && <img src={ EventImage(state.event.interests[0]) } alt="Event cap" height="400px" ></img> }
             </Row>
             { step === 4 &&
             <Row>

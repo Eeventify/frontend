@@ -6,7 +6,7 @@ function EventCard(props) {
     return (
         <Col>
             <Card className="h-100">
-                <img className="card-img-top" src="https://picsum.photos/300/150" alt="Event cap" />
+                <img className="card-img-top" src={ props.imgSrc } alt="Event cap" height="200px" />
                 <div className="card-body">
                     <h5 className="card-title">
                         <strong>Title: { props.title } </strong>

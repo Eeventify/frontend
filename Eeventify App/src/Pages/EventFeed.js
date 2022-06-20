@@ -4,6 +4,7 @@ import { useCookies } from "react-cookie";
 import { GetAllEvents, GetEventsByInterests } from "../API/EventAPI";
 import { GetTokenDetails } from "../API/UserAPI";
 import EventCard from "../Components/EventCard";
+import EventImage from "../Components/EventImage";
 
 function truncate(str, n) {
     return (str.length > n) ? str.substr(0, n-1) + '…' : str;
@@ -57,7 +58,8 @@ const EventFeed = () => {
                             title={ event.title }
                             description={ event.description }
                             href={"eventdetail/" + event.id }
-                            joined={ event.members.includes(userCookies.principalData.id) } />
+                            joined={ event.members.includes(userCookies.principalData.id) }
+                            imgSrc={ EventImage(event.interests[0]) } />
                     ))
                 }
             </Row>
