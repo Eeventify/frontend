@@ -26,7 +26,7 @@ const NavigationComponent = () => {
                         :
                             <Nav>
                                 <Nav.Item>
-                                    <Button onClick={() => { removeUserCookies("token"); window.location.href = window.location.origin}}>Log out</Button>
+                                    <Button onClick={() => { removeUserCookies("token"); removeUserCookies("principalData"); window.location.href = window.location.origin}}>Log out</Button>
                                 </Nav.Item>
                             </Nav>
                     }

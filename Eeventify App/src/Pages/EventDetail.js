@@ -49,7 +49,7 @@ const EventDetail = () => {
         step === 0 && GetEventByID(id)
             .then(json => {
                 setStateProp("event", json);
-                setHasJoined(json.members.includes(userCookies.principalData.id));
+                setHasJoined(userCookies.principalData ? json.members.includes(userCookies.principalData.id) : false);
                 setStep(1);
             });
         step === 1 && GetUserDetails(state.event.hostID)

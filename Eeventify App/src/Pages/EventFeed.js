@@ -58,7 +58,11 @@ const EventFeed = () => {
                             title={ event.title }
                             description={ event.description }
                             href={"eventdetail/" + event.id }
-                            joined={ event.members.includes(userCookies.principalData.id) }
+                            joined={
+                                userCookies.principalData ?
+                                event.members.includes(userCookies.principalData.id) :
+                                undefined
+                            }
                             imgSrc={ EventImage(event.interests[0]) } />
                     ))
                 }
