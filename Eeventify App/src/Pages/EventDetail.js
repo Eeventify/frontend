@@ -55,15 +55,16 @@ const EventDetail = () => {
         step === 1 && GetUserDetails(state.event.hostID)
             .then(json => {
                 setStateProp("host", json.name)
-                setStep(2);
+                if (state.event.members.length > 0) {setStep(2);}
+                else {setStep(3);}
             });
-        step === 2 && state.event.members.forEach((member, index) => {
+        step === 2 && state.event.members.forEach(member => {
             GetUserDetails(member).then(json => {
                 state.members.push(json.name);
                 state.members.length === state.event.members.length && setStep(3);
             });
         });
-        step === 3 && state.event.interests.forEach((interest, index) => {
+        step === 3 && state.event.interests.forEach(interest => {
             GetInterest(interest).then(json => {
                 state.interests.push(json.name);
                 state.interests.length === state.event.interests.length && setStep(4);
@@ -77,8 +78,6 @@ const EventDetail = () => {
                 { step > 0 && <img src={ EventImage(state.event.interests[0]) } alt="Event cap" height="400px" ></img> }
             </Row>
             { step === 4 &&
-            // state.event.members.length - 1 is used in the member count and in the logic for the join 
-            // and leave button to compensate for non-existing member 0
             <Row>
                 <Col md="6">
                     <h1><strong>Title:</strong> { state.event.title }</h1>
@@ -90,23 +89,26 @@ const EventDetail = () => {
                     </p>
                     <p><strong>Hosted by: </strong><span className="badge bg-secondary me-1">{ state.host }</span></p>
                     <p>
-                        <strong>People: </strong>{ state.event.members.length - 1 }/{ state.event.maxPeople}<br />
+                        <strong>People: </strong>{ state.event.members.length }/{ state.event.maxPeople}<br />
                         { state.members.map(member => (
                             member !== undefined && <span key={member} className="badge bg-secondary me-1">{ member }</span>
                         ))}
                     </p>
                     <p><strong>Event starts at:</strong> { new Date(state.event.startEvent).toString() }</p>
                     <p><strong>Description:</strong> { state.event.description }</p>
-                    { !hasJoined && state.event.members.length - 1 < state.event.maxPeople &&
+                    { !hasJoined && state.event.members.length < state.event.maxPeople &&
                         <button className="btn btn-primary mb-2 me-1" onClick={() => SignUp()}>Join this event</button> }
-                    { !hasJoined && state.event.members.length - 1 >= state.event.maxPeople &&
+                    { !hasJoined && state.event.members.length >= state.event.maxPeople &&
                         <button className="btn btn-secondary mb-2 me-1" disabled>Event full</button> }
                     { hasJoined && <button className="btn btn-danger mb-2 me-1" onClick={() => Leave()}>Leave this event</button> }
                     <a href="/" className="btn btn-primary mb-2">Back to feed</a>
                 </Col>
                 <Col md="6">
-                    <p>Kaartje hier?</p>
-                    <p>lat { state.event.latitude } lon { state.event.longitude }</p>
+                    { state.event.locationBased &&
+                    <div><p>Kaartje hier?</p>
+                        <p>lat { state.event.latitude } lon { state.event.longitude }</p>
+                    </div> 
+                    }
                 </Col>
             </Row>
             }

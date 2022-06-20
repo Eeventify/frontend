@@ -69,8 +69,11 @@ export const CreateEvent = async (description, interests, members, title, locati
     let res = await
     fetch(process.env.REACT_APP_API_URL + "/Event/CreateEvent", {
         method: "POST",
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
         body: JSON.stringify({description: description, interests: interests, members: members, title: title, locationBased: locationBased, latitude: latitude, longitude: longitude, hostID: hostID, maxPeople: maxPeople, minPeople: minPeople, startEvent: startEvent, hasStarted: false})
     });
 
-    return res.status;
+    return res;
 }
