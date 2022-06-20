@@ -14,6 +14,7 @@ const NavigationComponent = () => {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link href="/">Home</Nav.Link>
+                        { userCookies.token && <Nav.Link href="/createevent">Create Event</Nav.Link> }
                     </Nav>
                     {
                         userCookies.token === undefined
