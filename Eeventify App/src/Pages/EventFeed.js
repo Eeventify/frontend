@@ -39,7 +39,7 @@ const EventFeed = () => {
     });
 
     return (
-        <Container className="mt-4">
+        <Container className="mt-3">
             <Row>
                 <h1>Event Feed</h1>
                 { userInterests && userInterests.length > 0 &&

@@ -27,6 +27,7 @@ const NavigationComponent = () => {
                         :
                             <Nav>
                                 <Nav.Item>
+                                    <p className="d-inline-block py-2 pe-3 mb-0">Hello { userCookies.principalData.name }</p>
                                     <Button onClick={() => { removeUserCookies("token"); removeUserCookies("principalData"); window.location.href = window.location.origin}}>Log out</Button>
                                 </Nav.Item>
                             </Nav>
