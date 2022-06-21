@@ -96,11 +96,12 @@ const EventDetail = () => {
                     </p>
                     <p><strong>Event starts at:</strong> { new Date(state.event.startEvent).toString() }</p>
                     <p><strong>Description:</strong> { state.event.description }</p>
-                    { !hasJoined && state.event.members.length < state.event.maxPeople &&
+                    { !hasJoined && state.event.members.length < state.event.maxPeople && userCookies.token &&
                         <button className="btn btn-primary mb-2 me-1" onClick={() => SignUp()}>Join this event</button> }
-                    { !hasJoined && state.event.members.length >= state.event.maxPeople &&
+                    { !hasJoined && state.event.members.length >= state.event.maxPeople && userCookies.token &&
                         <button className="btn btn-secondary mb-2 me-1" disabled>Event full</button> }
-                    { hasJoined && <button className="btn btn-danger mb-2 me-1" onClick={() => Leave()}>Leave this event</button> }
+                    { hasJoined && userCookies.token &&
+                        <button className="btn btn-danger mb-2 me-1" onClick={() => Leave()}>Leave this event</button> }
                     <a href="/" className="btn btn-primary mb-2">Back to feed</a>
                 </Col>
                 <Col md="6">
