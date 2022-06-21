@@ -10,7 +10,8 @@ function EventCard(props) {
                 <div className="card-body">
                     <h5 className="card-title">
                         <strong>Title: { props.title } </strong>
-                        { props.joined && <Badge pill>Joined</Badge>}
+                        { props.joined && <Badge pill>Joined</Badge> }
+                        { props.owned && <Badge pill bg="success">My event</Badge> }
                     </h5>
                     <p className="card-text">Description: { props.description }</p>
                 </div>

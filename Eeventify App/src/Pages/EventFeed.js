@@ -63,6 +63,11 @@ const EventFeed = () => {
                                 event.members.includes(userCookies.principalData.id) :
                                 undefined
                             }
+                            owned={
+                                userCookies.principalData ?
+                                event.hostID === userCookies.principalData.id :
+                                undefined
+                            }
                             imgSrc={ EventImage(event.interests[0]) } />
                     ))
                 }

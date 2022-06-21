@@ -2,10 +2,11 @@ import React from "react";
 import { useParams } from 'react-router-dom';
 import { Container, Row, Col } from "react-bootstrap";
 import { useCookies } from "react-cookie";
-import { GetEventByID } from "../API/EventAPI";
+import { GetEventByID, DeleteEvent } from "../API/EventAPI";
 import { GetUserDetails, AttendEvent, UnattendEvent } from "../API/UserAPI";
 import { GetInterest } from "../API/InterestAPI";
 import EventImage from "../Components/EventImage";
+import DeleteModal from "../Components/DeleteModal";
 
 const EventDetail = () => {
     const { id } = useParams();
@@ -44,7 +45,20 @@ const EventDetail = () => {
             });
         }
     }
-    
+
+    const Delete = () => {
+        if (state.event !== undefined) {
+            DeleteEvent(state.event.id).then(status => {
+                if (status !== 200) {
+                    alert("Something went wrong...");
+                }
+                else {
+                    window.location.href = window.location.origin;
+                }
+            });
+        }
+    }
+
     React.useEffect(()  => {
         step === 0 && GetEventByID(id)
             .then(json => {
@@ -97,12 +111,15 @@ const EventDetail = () => {
                     <p><strong>Event starts at:</strong> { new Date(state.event.startEvent).toString() }</p>
                     <p><strong>Description:</strong> { state.event.description }</p>
                     { !hasJoined && state.event.members.length < state.event.maxPeople && userCookies.token &&
-                        <button className="btn btn-primary mb-2 me-1" onClick={() => SignUp()}>Join this event</button> }
+                        <button className="btn btn-primary mb-2 me-1" onClick={() => SignUp()}>Join event</button> }
                     { !hasJoined && state.event.members.length >= state.event.maxPeople && userCookies.token &&
                         <button className="btn btn-secondary mb-2 me-1" disabled>Event full</button> }
                     { hasJoined && userCookies.token &&
-                        <button className="btn btn-danger mb-2 me-1" onClick={() => Leave()}>Leave this event</button> }
+                        <button className="btn btn-danger mb-2 me-1" onClick={() => Leave()}>Leave event</button> }
+                    { userCookies.token && state.event.hostID === userCookies.principalData.id &&
+                        <DeleteModal deleteFunction={Delete} /> }
                     <a href="/" className="btn btn-primary mb-2">Back to feed</a>
+                    
                 </Col>
                 <Col md="6">
                     { state.event.locationBased &&
@@ -111,6 +128,7 @@ const EventDetail = () => {
                     </div> 
                     }
                 </Col>
+                
             </Row>
             }
         </Container>
