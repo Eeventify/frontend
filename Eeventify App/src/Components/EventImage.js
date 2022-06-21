@@ -13,7 +13,7 @@ function EventImage(interestId) {
     }
 
     if (interestId in images) { return images[interestId]; }
-    else { return "https://standardsolar.com/wp-content/uploads/2019/03/greenfield-scaled.jpeg"; }
+    else { return "https://cdn.writermag.com/2019/03/question-marks.jpg"; }
 }
 
 export default EventImage;
