@@ -2,6 +2,7 @@ import { Button, Container } from "react-bootstrap";
 import React from "react";
 import { Nav, Navbar } from "react-bootstrap";
 import { useCookies } from "react-cookie";
+import Logo from "../nav_logo.png";
 
 const NavigationComponent = () => {
     const [ userCookies, setUserCookies, removeUserCookies ] = useCookies(["user"]);
@@ -9,7 +10,7 @@ const NavigationComponent = () => {
     return (
         <Navbar bg="light" expand="lg">
             <Container>
-                <Navbar.Brand href="/"></Navbar.Brand>
+                <Navbar.Brand href="/"><img src={Logo} alt="nav-logo" height="25px"></img></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
