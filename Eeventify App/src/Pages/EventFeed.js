@@ -50,7 +50,7 @@ const EventFeed = () => {
                 }
             </Row>
             
-            <Row className="row-cols-1 row-cols-md-3 g-4 mb-3">
+            <Row className="row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 g-4 mb-3">
                 { events && 
                     events.map(event => (
                         <EventCard
