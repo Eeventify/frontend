@@ -2,6 +2,8 @@ import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import NavigationComponent from './Components/NavComponent';
 import EventFeed from './Pages/EventFeed';
+import Map from './Pages/Map';
+import MapComponent from './Components/MapComponent';
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
 
         <Routes>
           <Route index element={<EventFeed />} />
+          <Route path="/map" element={<MapComponent />} />
         </Routes>
     </>
   );
