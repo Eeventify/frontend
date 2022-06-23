@@ -13,7 +13,7 @@ const LoginPage = () => {
     const [ alertHeading, setAlertHeading] = useState();
     const [ alertMessage, setAlertMessage] = useState();
 
-    const [ userCookies, setUserCookies ] = useCookies(["user"])
+    const [ , setUserCookies ] = useCookies(["user"])
 
     const displayAlert = (type, heading, message) => {
         setAlertType(type)
@@ -45,8 +45,6 @@ const LoginPage = () => {
 
         setShowAlert(false);
         const token = await Login(loginEmail, loginPassword)
-
-        console.log(token);
 
         if (typeof(token) === 'string')
         {

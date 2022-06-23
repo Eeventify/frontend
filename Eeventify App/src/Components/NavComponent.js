@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 import Logo from "../nav_logo.png";
 
 const NavigationComponent = () => {
-    const [ userCookies, setUserCookies, removeUserCookies ] = useCookies(["user"]);
+    const [ userCookies, , removeUserCookies ] = useCookies(["user"]);
 
     return (
         <Navbar bg="light" expand="lg">
