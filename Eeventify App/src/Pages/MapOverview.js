@@ -25,7 +25,7 @@ function MapOverview() {
     });
 
     return (
-        markers && <Map center={center} zoom={zoom} markers={markers} height="100vh"/>
+        markers && <Map center={center} zoom={zoom} markers={markers} height="100vh" showPopup={true}/>
     );
 }
 

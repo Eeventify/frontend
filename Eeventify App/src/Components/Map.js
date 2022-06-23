@@ -22,11 +22,12 @@ function Map(props) {
 
           { props.markers && props.markers.map((marker, index) => (
               <Marker key={index} position={marker.position}>
-                <Popup>
-                  <p><strong>{marker.title}</strong></p>
-                  <p>{marker.description}</p>
-                  <a href={ marker.href } className="btn btn-outline-primary">Details</a>
-                </Popup>
+                { props.showPopup && <Popup>
+                    <p><strong>{marker.title}</strong></p>
+                    <p>{marker.description}</p>
+                    <a href={ marker.href } className="btn btn-outline-primary">Details</a>
+                  </Popup>
+                }
               </Marker>
             ))
           }

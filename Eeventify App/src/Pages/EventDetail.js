@@ -7,6 +7,7 @@ import { GetUserDetails, AttendEvent, UnattendEvent } from "../API/UserAPI";
 import { GetInterest } from "../API/InterestAPI";
 import EventImage from "../Components/EventImage";
 import DeleteModal from "../Components/DeleteModal";
+import Map from "../Components/Map";
 
 const EventDetail = () => {
     const { id } = useParams();
@@ -123,9 +124,17 @@ const EventDetail = () => {
                 </Col>
                 <Col md="6">
                     { state.event.locationBased &&
-                    <div><p>Kaartje hier?</p>
-                        <p>lat { state.event.latitude } lon { state.event.longitude }</p>
-                    </div> 
+                        <Map 
+                            center={[state.event.latitude, state.event.longitude]}
+                            zoom={12}
+                            markers={[{
+                                title: state.event.title, 
+                                description: state.event.title,
+                                position: [state.event.latitude, state.event.longitude]
+                            }]}
+                            height="100%"
+                            showPopup={false}
+                        />
                     }
                 </Col>
                 
