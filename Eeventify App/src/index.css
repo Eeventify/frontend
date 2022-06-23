@@ -14,5 +14,18 @@ code {
 
 
 .default-offset {
-    margin-left: 10%;
+    margin-left: 20%;
+    max-width: 60%;
+}
+
+.login-offset {
+  margin-left: 35%;
+  margin-top: auto;
+  width: 30%;
+}
+
+.vertical-center {
+  margin: 0;
+  position: relative;
+  top: 30%;
 }

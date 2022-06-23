@@ -2,6 +2,9 @@ import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import NavigationComponent from './Components/NavComponent';
 import EventFeed from './Pages/EventFeed';
+import EventDetail from './Pages/EventDetail'
+import LoginPage from './Pages/Login';
+import CreateEvent from './Pages/CreateEvent';
 
 function App() {
   return (
@@ -19,6 +22,9 @@ function App() {
 
         <Routes>
           <Route index element={<EventFeed />} />
+          <Route path="eventdetail/:id" element={<EventDetail />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="createevent" element={<CreateEvent />} />
         </Routes>
     </>
   );
