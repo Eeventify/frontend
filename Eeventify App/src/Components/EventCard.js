@@ -9,11 +9,11 @@ function EventCard(props) {
                 <img className="card-img-top" src={ props.imgSrc } alt="Event cap" height="200px" />
                 <div className="card-body">
                     <h5 className="card-title">
-                        <strong>Title: { props.title } </strong>
+                        <strong>{ props.title } </strong>
                         { props.joined && <Badge pill>Joined</Badge> }
                         { props.owned && <Badge pill bg="success">My event</Badge> }
                     </h5>
-                    <p className="card-text">Description: { props.description }</p>
+                    <p className="card-text">{ props.description }</p>
                 </div>
                 <div className="card-footer">
                     <a href={ props.href } className="btn btn-primary">Details</a>
