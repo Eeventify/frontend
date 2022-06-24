@@ -28,8 +28,7 @@ jobs:
         cache: 'npm'
         cache-dependency-path: ./Eeventify App
     - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+    - run: CI='' npm run build -- --prod
 
   publish:
 
