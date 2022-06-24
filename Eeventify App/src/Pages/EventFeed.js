@@ -5,6 +5,7 @@ import { GetAllEvents, GetEventsByInterests } from "../API/EventAPI";
 import { GetTokenDetails } from "../API/UserAPI";
 import EventCard from "../Components/EventCard";
 import EventImage from "../Components/EventImage";
+import { GetInterests } from "../API/InterestAPI";
 
 function truncate(str, n) {
     return (str.length > n) ? str.substr(0, n-1) + '…' : str;
@@ -15,6 +16,7 @@ const EventFeed = () => {
     const [ filter, setFilter ] = React.useState(false);
     const [ userInterests, setUserInterests ] = React.useState();
     const [ userCookies ] = useCookies(["user"])
+    const [ allInterests, setAllInterests ] = React.useState();
     
     React.useEffect(()  => {
         if (events === undefined) {
@@ -36,6 +38,13 @@ const EventFeed = () => {
                 setUserInterests(json.interests);
             });
         }
+
+        if (allInterests === undefined)
+        {
+            GetInterests().then(json => {
+                setAllInterests(json); console.log(json)
+            })
+        }
     });
 
     return (
@@ -51,8 +60,8 @@ const EventFeed = () => {
             </Row>
             
             <Row className="row-cols-1 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 g-4 mb-3">
-                { events && 
-                    events.map(event => (
+                { events && allInterests &&                     
+                    events.map(event => (                        
                         <EventCard
                             key={ event.id }
                             title={ event.title }
@@ -68,8 +77,9 @@ const EventFeed = () => {
                                 event.hostID === userCookies.principalData.id :
                                 undefined
                             }
-                            imgSrc={ EventImage(event.interests[0]) } />
-                    ))
+                            
+                            imgSrc={ EventImage(allInterests.filter(item => item.id === event.interests[0])[0] ? allInterests.filter(item => item.id === event.interests[0])[0].name : "") } />
+                    ))                    
                 }
             </Row>
         </Container>

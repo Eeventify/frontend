@@ -1,7 +1,7 @@
 /* GET APIs */
 export const GetInterests = async (searchterm, sort) => {
     let res = await
-    fetch(process.env.REACT_APP_API_URL + "/Interests?search=" + searchterm + "&sort=" + sort ?? false, {
+    fetch(process.env.REACT_APP_API_URL + "/Interests?" + (searchterm !== undefined ? "search=" + searchterm : "") + "&sort=" + (sort ?? false), {
         method: "GET"
     });
 
